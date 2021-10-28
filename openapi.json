@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API DE CONSULTORIO",
+    "description": "API para controlar medicos e suas especialidas dentro do consultorio",
+    "version": "0.0.1",
+    "termsOfService": "https://mockapi.io",
+    "contact": {
+      "name": "Suporte devs",
+      "email": "contato@example.com",
+      "url": "https://mockapi.io"
+    },
+    "license": {
+      "name": "Licença: GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+  },
+  "externalDocs": {
+    "description": "Documentação burocratica",
+    "url": "https://mockapi.io"
+  },
+  "servers": [
+    {
+      "url": "https://6179413baa7f3400174048d8.mockapi.io/",
+      "description": "API de Teste"
+    }
+  ],
+  "paths": {
+    "/especialidades": {
+      "get": {
+        "summary": "Recupera todas as especialidades",
+        "description": "Atravez desse endpoint e possivel recuperar todas as especialidades",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Especialidades"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cria uma nova especialidade",
+        "description": "Atravez dessa endpoint você pode criar novas especialidades",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Especialidade"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/especialidades/{id}": {
+      "get": {
+        "summary": "Recupera uma info pelo ID",
+        "description": "Atravez desse endpoint é possivel filtrar pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Especialidade"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Especialidades não encontrada",
+            "content": {
+              "application/json": {
+                "example": "Not Found"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Especialidade": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "descricao": {
+            "type": "string"
+          }
+        }
+      },
+      "Especialidades": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Especialidade"
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
